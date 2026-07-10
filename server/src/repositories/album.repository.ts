@@ -101,6 +101,17 @@ export class AlbumRepository {
       .executeTakeFirst();
   }
 
+  @GenerateSql({ params: [] })
+  getFirst() {
+    return this.db
+      .selectFrom('album')
+      .selectAll('album')
+      .where('album.deletedAt', 'is', null)
+      .orderBy('album.createdAt', 'asc')
+      .limit(1)
+      .executeTakeFirst();
+  }
+
   @GenerateSql({ params: [DummyValue.UUID, DummyValue.UUID] })
   getByAssetId(ownerId: string, assetId: string) {
     return this.db

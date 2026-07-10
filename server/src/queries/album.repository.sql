@@ -88,6 +88,17 @@ where
   "album"."id" = $3
   and "album"."deletedAt" is null
 
+-- AlbumRepository.getFirst
+select
+  "album".*
+from
+  "album"
+where
+  "album"."deletedAt" is null
+order by
+  "album"."createdAt" asc
+limit 1
+
 -- AlbumRepository.getByAssetId
 select
   "album".*,

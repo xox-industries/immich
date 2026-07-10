@@ -1,6 +1,8 @@
 import { Kysely } from 'kysely';
 import { DateTime } from 'luxon';
-import { ImmichEnvironment, JobName, JobStatus } from 'src/enum';
+import { AlbumUserRole, ImmichEnvironment, JobName, JobStatus } from 'src/enum';
+import { AlbumUserRepository } from 'src/repositories/album-user.repository';
+import { AlbumRepository } from 'src/repositories/album.repository';
 import { ConfigRepository } from 'src/repositories/config.repository';
 import { CryptoRepository } from 'src/repositories/crypto.repository';
 import { EventRepository } from 'src/repositories/event.repository';
@@ -21,7 +23,7 @@ const setup = (db?: Kysely<DB>) => {
 
   return newMediumService(UserService, {
     database: db || defaultDatabase,
-    real: [CryptoRepository, ConfigRepository, SystemMetadataRepository, UserRepository],
+    real: [AlbumRepository, AlbumUserRepository, CryptoRepository, ConfigRepository, SystemMetadataRepository, UserRepository],
     mock: [LoggingRepository, JobRepository, EventRepository],
   });
 };
@@ -57,6 +59,32 @@ describe(UserService.name, () => {
       const dto = mediumFactory.userInsert({ password: 'password' });
       const user = await sut.createUser({ name: 'Test', email: dto.email, password: 'password' });
       expect((user as any).password).toBeUndefined();
+    });
+
+    it('should link new user to the first album', async () => {
+      const { sut, ctx } = setup();
+      ctx.getMock(EventRepository).emit.mockResolvedValue();
+      const { user: owner } = await ctx.newUser();
+      const { album } = await ctx.newAlbum({ ownerId: owner.id });
+
+      const user = mediumFactory.userInsert();
+      const createdUser = await sut.createUser({ name: user.name, email: user.email });
+      expect(createdUser).toEqual(expect.objectContaining({ name: user.name, email: user.email }));
+
+      const albumUser = await ctx.database
+        .selectFrom('album_user')
+        .selectAll()
+        .where('albumId', '=', album.id)
+        .where('userId', '=', createdUser.id)
+        .executeTakeFirst();
+
+      expect(albumUser).toEqual(
+        expect.objectContaining({
+          albumId: album.id,
+          userId: createdUser.id,
+          role: AlbumUserRole.Editor,
+        }),
+      );
     });
   });
 

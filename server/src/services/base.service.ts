@@ -3,6 +3,7 @@ import { Insertable } from 'kysely';
 import sanitize from 'sanitize-filename';
 import { SystemConfig } from 'src/config';
 import { SALT_ROUNDS } from 'src/constants';
+import { AlbumUserRole } from 'src/enum';
 import { StorageCore } from 'src/cores/storage.core';
 import { UserAdmin } from 'src/database';
 import { AccessRepository } from 'src/repositories/access.repository';
@@ -303,6 +304,15 @@ export class BaseService {
     }
 
     const user = await this.userRepository.create(payload);
+
+    const firstAlbum = await this.albumRepository.getFirst();
+    if (firstAlbum) {
+      await this.albumUserRepository.create({
+        albumId: firstAlbum.id,
+        userId: user.id,
+        role: AlbumUserRole.Editor,
+      });
+    }
 
     await this.eventRepository.emit('UserCreate', user);
 
