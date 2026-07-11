@@ -25,7 +25,7 @@ describe('/admin/users', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
 
     [websocket, nonAdmin, deletedUser, userToDelete] = await Promise.all([
       utils.connectWebsocket(admin.accessToken),

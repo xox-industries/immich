@@ -48,7 +48,7 @@ const getDefaultPreferences = (): UserPreferences => {
       hideBuyButtonUntil: new Date(2022, 1, 12).toISOString(),
     },
     cast: {
-      gCastEnabled: false,
+      gCastEnabled: true,
     },
     recentlyAdded: {
       sidebarWeb: false,

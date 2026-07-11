@@ -162,7 +162,7 @@ describe(ServerService.name, () => {
         trashDays: 30,
         userDeleteDelay: 7,
         isInitialized: undefined,
-        isOnboarded: false,
+        isOnboarded: true,
         externalDomain: '',
         publicUsers: true,
         mapDarkStyleUrl: 'https://tiles.immich.cloud/v1/style/dark.json',

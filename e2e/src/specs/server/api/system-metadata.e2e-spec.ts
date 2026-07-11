@@ -11,7 +11,7 @@ describe('/server-info', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
     nonAdmin = await utils.userSetup(admin.accessToken, createUserDto.user1);
   });
 
@@ -31,10 +31,12 @@ describe('/server-info', () => {
       expect(body).toEqual(errorDto.forbidden);
     });
 
-    it('should set admin onboarding', async () => {
+    it('should report admin as onboarded by default', async () => {
       const config = await getServerConfig({});
-      expect(config.isOnboarded).toBe(false);
+      expect(config.isOnboarded).toBe(true);
+    });
 
+    it('should accept admin onboarding update as no-op', async () => {
       const { status } = await request(app)
         .post('/system-metadata/admin-onboarding')
         .set('Authorization', `Bearer ${admin.accessToken}`)

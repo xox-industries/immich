@@ -10,9 +10,7 @@ describe('/admin/database-backups', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({
-      onboarding: false,
-    });
+    admin = await utils.adminSetup();
   });
 
   beforeEach(async () => {
@@ -99,9 +97,7 @@ describe('/admin/database-backups', () => {
         ({ status, body }) => status === 200 && !body.maintenanceMode,
       );
 
-      admin = await utils.adminSetup({
-        onboarding: false,
-      });
+      admin = await utils.adminSetup();
     });
 
     it.sequential('should not work when the server is configured', async () => {

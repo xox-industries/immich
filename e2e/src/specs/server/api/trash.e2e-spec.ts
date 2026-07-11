@@ -12,7 +12,7 @@ describe('/trash', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
     ws = await utils.connectWebsocket(admin.accessToken);
   });
 

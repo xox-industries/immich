@@ -18,7 +18,7 @@ describe('/map', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
     partner = await utils.userSetup(admin.accessToken, createUserDto.user1);
 
     websocket = await utils.connectWebsocket(admin.accessToken);

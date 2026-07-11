@@ -17,7 +17,7 @@ describe('/server', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
     nonAdmin = await utils.userSetup(admin.accessToken, createUserDto.user1);
   });
 
@@ -139,7 +139,7 @@ describe('/server', () => {
         isInitialized: true,
         externalDomain: '',
         publicUsers: true,
-        isOnboarded: false,
+        isOnboarded: true,
         maintenanceMode: false,
         mapDarkStyleUrl: 'https://tiles.immich.cloud/v1/style/dark.json',
         mapLightStyleUrl: 'https://tiles.immich.cloud/v1/style/light.json',

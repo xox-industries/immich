@@ -18,7 +18,7 @@ describe('/users', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
 
     [deletedUser, nonAdmin] = await Promise.all([
       utils.userSetup(admin.accessToken, createUserDto.user1),

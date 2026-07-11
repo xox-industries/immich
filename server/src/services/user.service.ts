@@ -204,37 +204,16 @@ export class UserService extends BaseService {
     return { ...license, activatedAt };
   }
 
-  async getOnboarding(auth: AuthDto): Promise<OnboardingResponseDto> {
-    const metadata = await this.userRepository.getMetadata(auth.user.id);
-
-    const onboardingData = metadata.find(
-      (item): item is UserMetadataItem<UserMetadataKey.Onboarding> => item.key === UserMetadataKey.Onboarding,
-    )?.value;
-
-    if (!onboardingData) {
-      return { isOnboarded: false };
-    }
-
-    return {
-      isOnboarded: onboardingData.isOnboarded,
-    };
+  async getOnboarding(_auth: AuthDto): Promise<OnboardingResponseDto> {
+    return { isOnboarded: true };
   }
 
-  async deleteOnboarding({ user }: AuthDto): Promise<void> {
-    await this.userRepository.deleteMetadata(user.id, UserMetadataKey.Onboarding);
+  async deleteOnboarding(_auth: AuthDto): Promise<void> {
+    // no-op: onboarding is always complete
   }
 
-  async setOnboarding(auth: AuthDto, onboarding: OnboardingDto): Promise<OnboardingResponseDto> {
-    await this.userRepository.upsertMetadata(auth.user.id, {
-      key: UserMetadataKey.Onboarding,
-      value: {
-        isOnboarded: onboarding.isOnboarded,
-      },
-    });
-
-    return {
-      isOnboarded: onboarding.isOnboarded,
-    };
+  async setOnboarding(_auth: AuthDto, _onboarding: OnboardingDto): Promise<OnboardingResponseDto> {
+    return { isOnboarded: true };
   }
 
   @OnEvent({ name: 'AssetCreate' })

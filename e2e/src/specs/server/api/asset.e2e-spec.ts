@@ -54,7 +54,7 @@ describe('/asset', () => {
 
   const setupTests = async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
 
     [websocket, user1, user2, statsUser, quotaUser, timeBucketUser] = await Promise.all([
       utils.connectWebsocket(admin.accessToken),

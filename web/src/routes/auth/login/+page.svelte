@@ -34,7 +34,6 @@
   };
 
   const onFirstLogin = () => goto(Route.changePassword());
-  const onOnboarding = () => goto(Route.onboarding());
 
   onMount(async () => {
     if (!featureFlagsManager.value.oauth) {
@@ -45,11 +44,6 @@
     if (oauth.isCallback(globalThis.location)) {
       try {
         const user = await oauth.login(globalThis.location);
-
-        if (!user.isOnboarded) {
-          await onOnboarding();
-          return;
-        }
 
         await onSuccess(user);
         return;
@@ -83,21 +77,9 @@
       loading = true;
       const user = await login({ loginCredentialDto: { email, password } });
 
-      if (user.isAdmin && !serverConfig.isOnboarded) {
-        await onOnboarding();
-        return;
-      }
-
-      // change the user password before we onboard them
+      // prompt the user to change their password on first login
       if (!user.isAdmin && user.shouldChangePassword) {
         await onFirstLogin();
-        return;
-      }
-
-      // We want to onboard after the first login since their password will change
-      // and handleLogin will be called again (relogin). We then do onboarding on that next call.
-      if (!user.isOnboarded) {
-        await onOnboarding();
         return;
       }
 

@@ -1,4 +1,3 @@
-import { SystemMetadataKey } from 'src/enum';
 import { SystemMetadataService } from 'src/services/system-metadata.service';
 import { newTestService, ServiceMocks } from 'test/utils';
 
@@ -15,27 +14,16 @@ describe(SystemMetadataService.name, () => {
   });
 
   describe('getAdminOnboarding', () => {
-    it('should get isOnboarded state', async () => {
-      mocks.systemMetadata.get.mockResolvedValue({ isOnboarded: true });
+    it('should always report admin as onboarded', async () => {
       await expect(sut.getAdminOnboarding()).resolves.toEqual({ isOnboarded: true });
-      expect(mocks.systemMetadata.get).toHaveBeenCalledWith('admin-onboarding');
-    });
-
-    it('should default isOnboarded to false', async () => {
-      await expect(sut.getAdminOnboarding()).resolves.toEqual({ isOnboarded: false });
-      expect(mocks.systemMetadata.get).toHaveBeenCalledWith('admin-onboarding');
+      expect(mocks.systemMetadata.get).not.toHaveBeenCalled();
     });
   });
 
   describe('updateAdminOnboarding', () => {
-    it('should update isOnboarded to true', async () => {
+    it('should be a no-op', async () => {
       await expect(sut.updateAdminOnboarding({ isOnboarded: true })).resolves.toBeUndefined();
-      expect(mocks.systemMetadata.set).toHaveBeenCalledWith(SystemMetadataKey.AdminOnboarding, { isOnboarded: true });
-    });
-
-    it('should update isOnboarded to false', async () => {
-      await expect(sut.updateAdminOnboarding({ isOnboarded: false })).resolves.toBeUndefined();
-      expect(mocks.systemMetadata.set).toHaveBeenCalledWith(SystemMetadataKey.AdminOnboarding, { isOnboarded: false });
+      expect(mocks.systemMetadata.set).not.toHaveBeenCalled();
     });
   });
 

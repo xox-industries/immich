@@ -12,7 +12,7 @@ describe('/jobs', () => {
 
   beforeAll(async () => {
     await utils.resetDatabase();
-    admin = await utils.adminSetup({ onboarding: false });
+    admin = await utils.adminSetup();
   });
 
   describe('PUT /jobs', () => {

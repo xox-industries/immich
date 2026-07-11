@@ -54,7 +54,6 @@ export const Route = {
   logout: (params?: { continue?: string }) => '/auth/logout' + asQueryString(params),
   register: () => '/auth/register',
   changePassword: () => '/auth/change-password',
-  onboarding: (params?: { step?: string }) => '/auth/onboarding' + asQueryString(params),
   pinPrompt: (params?: { continue?: string }) => '/auth/pin-prompt' + asQueryString({ continue: params?.continue }),
 
   // albums

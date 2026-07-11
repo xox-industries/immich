@@ -1,7 +1,6 @@
 import { createZodDto } from 'nestjs-zod';
 import { AuthApiKey, AuthSession, AuthSharedLink, AuthUser, UserAdmin } from 'src/database';
-import { ImmichCookie, UserMetadataKey } from 'src/enum';
-import { UserMetadataItem } from 'src/types';
+import { ImmichCookie } from 'src/enum';
 import { toEmail } from 'src/validation';
 import z from 'zod';
 
@@ -40,10 +39,6 @@ const LoginResponseSchema = z
   .meta({ id: 'LoginResponseDto' });
 
 export function mapLoginResponse(entity: UserAdmin, accessToken: string): LoginResponseDto {
-  const onboardingMetadata = entity.metadata.find(
-    (item): item is UserMetadataItem<UserMetadataKey.Onboarding> => item.key === UserMetadataKey.Onboarding,
-  )?.value;
-
   return {
     accessToken,
     userId: entity.id,
@@ -52,7 +47,7 @@ export function mapLoginResponse(entity: UserAdmin, accessToken: string): LoginR
     isAdmin: entity.isAdmin,
     profileImagePath: entity.profileImagePath,
     shouldChangePassword: entity.shouldChangePassword,
-    isOnboarded: onboardingMetadata?.isOnboarded ?? false,
+    isOnboarded: true,
   };
 }
 

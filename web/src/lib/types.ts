@@ -34,11 +34,6 @@ export type UploadAsset = {
   message?: string;
 };
 
-export enum OnboardingRole {
-  SERVER = 'server',
-  USER = 'user',
-}
-
 export type AssetControlContext = {
   // Wrap assets in a function, because context isn't reactive.
   getAssets: () => TimelineAsset[]; // All assets includes partners' assets

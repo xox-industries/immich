@@ -43,7 +43,6 @@ import {
   setMaintenanceMode,
   signUpAdmin,
   tagAssets,
-  updateAdminOnboarding,
   updateAlbumUser,
   updateAssets,
   updateConfig,
@@ -76,7 +75,7 @@ export type { Emitter } from '@socket.io/component-emitter';
 type CommandResponse = { stdout: string; stderr: string; exitCode: number | null };
 type EventType = 'assetUpload' | 'assetUpdate' | 'assetDelete' | 'userDelete' | 'assetHidden';
 type WaitOptions = { event: EventType; id?: string; total?: number; timeout?: number };
-type AdminSetupOptions = { onboarding?: boolean };
+type AdminSetupOptions = object;
 type FileData = { bytes?: Buffer; filename: string };
 
 const dbUrl = `postgres://postgres:postgres@${playwrightDbHost}:5435/immich`;
@@ -303,17 +302,9 @@ export const utils = {
     setBaseUrl(app);
   },
 
-  adminSetup: async (options?: AdminSetupOptions) => {
-    options = options || { onboarding: true };
-
+  adminSetup: async (_options?: AdminSetupOptions) => {
     await signUpAdmin({ signUpDto: signupDto.admin });
     const response = await login({ loginCredentialDto: loginDto.admin });
-    if (options.onboarding) {
-      await updateAdminOnboarding(
-        { adminOnboardingUpdateDto: { isOnboarded: true } },
-        { headers: asBearerAuth(response.accessToken) },
-      );
-    }
     return response;
   },
 

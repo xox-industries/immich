@@ -11,14 +11,11 @@ import { BaseService } from 'src/services/base.service';
 @Injectable()
 export class SystemMetadataService extends BaseService {
   async getAdminOnboarding(): Promise<AdminOnboardingResponseDto> {
-    const value = await this.systemMetadataRepository.get(SystemMetadataKey.AdminOnboarding);
-    return { isOnboarded: false, ...value };
+    return { isOnboarded: true };
   }
 
-  async updateAdminOnboarding(dto: AdminOnboardingUpdateDto): Promise<void> {
-    await this.systemMetadataRepository.set(SystemMetadataKey.AdminOnboarding, {
-      isOnboarded: dto.isOnboarded,
-    });
+  async updateAdminOnboarding(_dto: AdminOnboardingUpdateDto): Promise<void> {
+    // no-op: onboarding is always complete
   }
 
   async getReverseGeocodingState(): Promise<ReverseGeocodingStateResponseDto> {

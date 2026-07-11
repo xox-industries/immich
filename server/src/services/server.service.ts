@@ -30,12 +30,6 @@ import {
 export class ServerService extends BaseService {
   @OnEvent({ name: 'AppBootstrap' })
   async onBootstrap(): Promise<void> {
-    const featureFlags = await this.getFeatures();
-    if (featureFlags.configFile) {
-      await this.systemMetadataRepository.set(SystemMetadataKey.AdminOnboarding, {
-        isOnboarded: true,
-      });
-    }
     this.logger.log(`Feature Flags: ${JSON.stringify(await this.getFeatures(), null, 2)}`);
   }
 
@@ -114,7 +108,6 @@ export class ServerService extends BaseService {
     const { setup } = this.configRepository.getEnv();
     const config = await this.getConfig({ withCache: false });
     const isInitialized = !setup.allow || (await this.userRepository.hasAdmin());
-    const onboarding = await this.systemMetadataRepository.get(SystemMetadataKey.AdminOnboarding);
 
     return {
       loginPageMessage: config.server.loginPageMessage,
@@ -122,7 +115,7 @@ export class ServerService extends BaseService {
       userDeleteDelay: config.user.deleteDelay,
       oauthButtonText: config.oauth.buttonText,
       isInitialized,
-      isOnboarded: onboarding?.isOnboarded || false,
+      isOnboarded: true,
       externalDomain: config.server.externalDomain,
       publicUsers: config.server.publicUsers,
       mapDarkStyleUrl: config.map.darkStyle,

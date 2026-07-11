@@ -11,7 +11,6 @@ test.describe('Registration', () => {
   });
 
   test('admin registration', async ({ page }) => {
-    // welcome
     await page.goto('/');
     await page.getByRole('link', { name: 'Getting Started' }).click();
 
@@ -29,17 +28,6 @@ test.describe('Registration', () => {
     await page.getByLabel('Email').fill('admin@immich.app');
     await page.getByLabel('Password').fill('password');
     await page.getByRole('button', { name: 'Login' }).click();
-
-    // onboarding
-    await expect(page).toHaveURL('/auth/onboarding');
-    await page.getByRole('button', { name: 'Theme' }).click();
-    await page.getByRole('button', { name: 'Language' }).click();
-    await page.getByRole('button', { name: 'Server Privacy' }).click();
-    await page.getByRole('button', { name: 'User Privacy' }).click();
-    await page.getByRole('button', { name: 'Storage Template' }).click();
-    await page.getByRole('button', { name: 'Backups' }).click();
-    await page.getByRole('button', { name: 'Mobile App' }).click();
-    await page.getByRole('button', { name: 'Done' }).click();
 
     // success
     await expect(page).toHaveURL('/photos');
@@ -80,14 +68,6 @@ test.describe('Registration', () => {
     await page.getByLabel('Email').fill('user@immich.cloud');
     await page.getByLabel('Password').fill('new-password');
     await page.getByRole('button', { name: 'Login' }).click();
-
-    // onboarding
-    await expect(page).toHaveURL('/auth/onboarding');
-    await page.getByRole('button', { name: 'Theme' }).click();
-    await page.getByRole('button', { name: 'Language' }).click();
-    await page.getByRole('button', { name: 'User Privacy' }).click();
-    await page.getByRole('button', { name: 'Mobile App' }).click();
-    await page.getByRole('button', { name: 'Done' }).click();
 
     // success
     await expect(page).toHaveURL(/\/photos/);
