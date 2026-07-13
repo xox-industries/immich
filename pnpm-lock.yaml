@@ -13,6 +13,9 @@ packageExtensionsChecksum: sha256-W6pFzyf+6QXnV91iA6oob0OGVkergPXDN1afLgoF53k=
 
 pnpmfileChecksum: sha256-un98do36L0wZyqsjcLozQ3YUadCAn2yz5bXcBbOuyDA=
 
+patchedDependencies:
+  '@immich/ui@0.81.1': b77582ddaf83c0a8996d9c4e994657dbad6935e55bc59819e974d15d1d88fc30
+
 importers:
 
   .:
@@ -787,7 +790,7 @@ importers:
         version: link:../packages/sdk
       '@immich/ui':
         specifier: ^0.81.1
-        version: 0.81.1(@sveltejs/kit@2.65.1(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.3(@typescript-eslint/types@8.61.0))(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))(typescript@6.0.3)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))
+        version: 0.81.1(patch_hash=b77582ddaf83c0a8996d9c4e994657dbad6935e55bc59819e974d15d1d88fc30)(@sveltejs/kit@2.65.1(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.3(@typescript-eslint/types@8.61.0))(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))(typescript@6.0.3)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))
       '@mapbox/mapbox-gl-rtl-text':
         specifier: 0.4.0
         version: 0.4.0
@@ -16111,7 +16114,7 @@ snapshots:
       pg-connection-string: 2.13.0
       postgres: 3.4.9
 
-  '@immich/ui@0.81.1(@sveltejs/kit@2.65.1(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.3(@typescript-eslint/types@8.61.0))(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))(typescript@6.0.3)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))':
+  '@immich/ui@0.81.1(patch_hash=b77582ddaf83c0a8996d9c4e994657dbad6935e55bc59819e974d15d1d88fc30)(@sveltejs/kit@2.65.1(@opentelemetry/api@1.9.1)(@sveltejs/vite-plugin-svelte@7.1.2(svelte@5.56.3(@typescript-eslint/types@8.61.0))(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))(typescript@6.0.3)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(sass@1.101.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(svelte@5.56.3(@typescript-eslint/types@8.61.0))':
     dependencies:
       '@internationalized/date': 3.12.2
       '@mdi/js': 7.4.47

@@ -67,3 +67,5 @@ shamefullyHoist: false
 verifyDepsBeforeRun: install
 minimumReleaseAgeExclude:
   - '@immich/ui@0.81.1'
+patchedDependencies:
+  '@immich/ui@0.81.1': patches/@immich__ui@0.81.1.patch
