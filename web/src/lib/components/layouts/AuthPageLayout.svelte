@@ -6,13 +6,14 @@
     children?: Snippet;
     withHeader?: boolean;
     withBackdrop?: boolean;
+    withLogo?: boolean;
   }
 
-  let { title, children, withHeader = true, withBackdrop = true }: Props = $props();
+  let { title, children, withHeader = true, withBackdrop = true, withLogo = true }: Props = $props();
 </script>
 
 <section class="relative isolate flex min-h-dvh min-w-dvw items-center justify-center">
-  {#if withBackdrop}
+  {#if withBackdrop && withLogo}
     <div class="absolute -z-10 flex size-full place-content-center place-items-center">
       <img
         src={immichLogo}
@@ -29,7 +30,9 @@
     {#if withHeader}
       <CardHeader class="mt-6">
         <VStack>
-          <Logo variant="icon" size="giant" />
+          {#if withLogo}
+            <Logo variant="icon" size="giant" />
+          {/if}
           <Heading size="large" class="font-semibold" color="primary" tag="h1">{title}</Heading>
         </VStack>
       </CardHeader>
